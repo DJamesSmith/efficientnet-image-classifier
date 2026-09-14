@@ -5,9 +5,12 @@ https://www.kaggle.com/datasets/bhavikjikadara/dog-and-cat-classification-datase
 Install the required libraries from the environment
 1. pipreqs . --force
 2. Copy paste the dataset folders for Cat and Dog for the environment
-3. Run these commands:
+3. Run these commands in order:
     - python main.py train
     - python main.py evaluate
     - python main.py predict path/to/image.jpg
-Dion's macOS, environment used for core python project image_classification_env
 
+Dion's macOS, environment used for core python project (( image_classification_env ))
+
+More notes on:
+https://docs.google.com/document/d/1APGkT4lRehr3OTfvGwfZM84liDSkXjGeMFmR29kF8VU/edit?tab=t.0#heading=h.llu5mx5kr0le

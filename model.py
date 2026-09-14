@@ -3,7 +3,6 @@
 import tensorflow as tf
 from tensorflow.keras import layers, models
 from tensorflow.keras.applications import EfficientNetB0
-
 import config
 
 
@@ -32,8 +31,7 @@ def build_model():
     model.compile(
         optimizer=tf.keras.optimizers.Adam(config.LEARNING_RATE),
         loss="binary_crossentropy",
-        metrics=["accuracy"],
-    )
+        metrics=["accuracy"])
     return model, base_model
 
 

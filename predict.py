@@ -34,8 +34,3 @@ if __name__ == "__main__":
         sys.exit(1)
 
     predict(sys.argv[1])
-
-
-
-# Run command:
-# python predict.py path/to/image.jpg
