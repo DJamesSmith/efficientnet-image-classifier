@@ -11,19 +11,27 @@ Builds efficient tf.data.Dataset pipelines, applying the EfficientNet-specific
 preprocessing function and light augmentation on the training split.
 
 ------------------------------- Cleaning the dataset -------------------------------
-Scans the dataset directory and removes any image file that can't be fully decoded, or that isn't convertible to standard RGB (e.g. truncated JPEGs,
-zero-byte files, or files with a .jpg extension that are actually a different format/mode -- such as grayscale+alpha PNGs, which have 2
-channels and make TensorFlow's decoder crash mid-training with: "Number of channels inherent in the image must be 1, 3 or 4, was 2"
+Scans the dataset directory and removes any image file that TensorFlow's own
+decoder can't handle -- truncated JPEGs, zero-byte files, or files with a
+.jpg extension that are actually a different format/channel-count, such as
+JPEGs with only 2 inherent color components, which crash mid-training with:
+"Number of channels inherent in the image must be 1, 3 or 4, was 2"
+
+NOTE: this deliberately uses tf.io.decode_image -- the exact op that
+image_dataset_from_directory runs internally -- rather than Pillow. Pillow's
+libjpeg wrapper is more forgiving and will happily open/convert files that
+TensorFlow's decoder still rejects, so a Pillow-based check can report
+"0 removed" while training still crashes on the same file.
 
 There is a known issue with the classic Kaggle "Dogs vs Cats" dataset.
-Hence clean_dataset() is used to clean the dataset before training, any time you add/replace images.
+Hence clean_dataset() is used to clean the dataset before training, any time
+you add/replace images.
 """
 
 import tensorflow as tf
 from tensorflow.keras.applications.efficientnet import preprocess_input
 import config
 import os
-from PIL import Image, UnidentifiedImageError
 
 
 def clean_dataset(data_dir=config.DATA_DIR):
@@ -43,19 +51,15 @@ def clean_dataset(data_dir=config.DATA_DIR):
 
             checked += 1
             try:
-                # Pass 1: verify() checks the file isn't truncated/malformed
-                with Image.open(filepath) as img:
-                    img.verify()
+                raw = tf.io.read_file(filepath)
+                # channels=3 forces RGB, expand_animations=False matches
+                # what image_dataset_from_directory does internally.
+                img = tf.io.decode_image(raw, channels=3, expand_animations=False)
+                if img.shape[-1] != 3:
+                    raise ValueError(f"unexpected channel count: {img.shape}")
 
-                # Pass 2: verify() leaves the file object unusable for further
-                # decoding, so reopen and force a full RGB decode -- this is
-                # what actually catches unsupported channel counts (e.g. the
-                # 2-channel grayscale+alpha files that crash tf.data).
-                with Image.open(filepath) as img:
-                    img.convert("RGB")
-
-            except (UnidentifiedImageError, OSError, SyntaxError, ValueError) as e:
-                print(f"Removing unusable file: {filepath}  ({e})")
+            except Exception as e:
+                print(f"Removing file TensorFlow can't decode: {filepath}  ({e})")
                 os.remove(filepath)
                 removed.append(filepath)
 
