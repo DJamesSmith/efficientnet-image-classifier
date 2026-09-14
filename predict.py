@@ -1,6 +1,8 @@
 # Single-image inference script.
 
 import sys
+from decorators import log_execution_time
+
 
 import numpy as np
 import tensorflow as tf
@@ -15,7 +17,7 @@ def load_and_preprocess(image_path):
     img_array = preprocess_input(img_array)
     return np.expand_dims(img_array, axis=0)
 
-
+@log_execution_time
 def predict(image_path):
     model = tf.keras.models.load_model(config.MODEL_PATH)
     img_array = load_and_preprocess(image_path)

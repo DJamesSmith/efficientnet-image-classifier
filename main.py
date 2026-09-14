@@ -1,5 +1,6 @@
 import argparse
 from predict import predict
+from decorators import log_execution_time
 
 # Training & Evaluation imports
 import utils
@@ -21,6 +22,7 @@ import matplotlib.pyplot as plt
 
 # Training script for the EfficientNetB0 cat/dog classifier.
 # Trains the classification head first (backbone frozen), then unfreezes the top of the backbone for a short fine-tuning phase.
+@log_execution_time
 def train():
     utils.set_seed()
     utils.ensure_dirs()
@@ -60,6 +62,7 @@ def train():
 
 
 # Evaluation script: loads a trained model and reports metrics on the test set, including a classification report and a confusion matrix plot.
+@log_execution_time
 def evaluate():
     utils.ensure_dirs()
 
