@@ -1,5 +1,6 @@
 Dataset taken from:
-https://www.kaggle.com/datasets/bhavikjikadara/dog-and-cat-classification-dataset
+1. https://www.kaggle.com/datasets/bhavikjikadara/dog-and-cat-classification-dataset
+2. https://www.kaggle.com/datasets/samuelcortinhas/cats-and-dogs-image-classification
 
 
 Install the required libraries from the environment
@@ -9,6 +10,8 @@ Install the required libraries from the environment
     - python main.py train
     - python main.py evaluate
     - python main.py predict path/to/image.jpg
+        E.g.:
+        python main.py predict test_prediction/Dogs/dog5.jpeg
 
 Dion's macOS, environment used for core python project (( image_classification_env ))
 
