@@ -5,7 +5,7 @@ from decorators import log_execution_time
 # Training & Evaluation imports
 import utils
 import config
-from data_loader import get_datasets
+from data_loader import clean_dataset, get_datasets
 
 # Training imports
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
@@ -26,6 +26,9 @@ import matplotlib.pyplot as plt
 def train():
     utils.set_seed()
     utils.ensure_dirs()
+
+    print("cleaning datasets...")
+    clean_dataset()
 
     print("Loading datasets...")
     train_ds, val_ds, test_ds = get_datasets()
