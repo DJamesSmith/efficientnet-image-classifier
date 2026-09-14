@@ -16,4 +16,4 @@ Install the required libraries from the environment
 Dion's macOS, environment used for core python project (( image_classification_env ))
 
 More notes on:
-https://docs.google.com/document/d/1APGkT4lRehr3OTfvGwfZM84liDSkXjGeMFmR29kF8VU/edit?tab=t.0#heading=h.llu5mx5kr0le
+https://docs.google.com/document/d/1APGkT4lRehr3OTfvGwfZM84liDSkXjGeMFmR29kF8VU/edit?tab=t.0#heading=h.llu5mx5kr0le 

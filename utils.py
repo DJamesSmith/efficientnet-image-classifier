@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import config
 
 
-# Sets random seeds across libraries for reproducible runs.
+# Sets random seeds across libraries for reproducible runs. 
 def set_seed(seed=config.SEED):
     random.seed(seed)
     np.random.seed(seed)

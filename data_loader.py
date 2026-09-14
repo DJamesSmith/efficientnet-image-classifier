@@ -23,7 +23,7 @@ libjpeg wrapper is more forgiving and will happily open/convert files that
 TensorFlow's decoder still rejects, so a Pillow-based check can report
 "0 removed" while training still crashes on the same file.
 
-There is a known issue with the classic Kaggle "Dogs vs Cats" dataset.
+There is a known issue with the classic Kaggle "Dogs vs Cats" dataset. 
 Hence clean_dataset() is used to clean the dataset before training, any time
 you add/replace images.
 """
