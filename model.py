@@ -35,11 +35,11 @@ def build_model():
     return model, base_model
 
 
+"""
+Unfreezes the top layers of the backbone (from config.FINE_TUNE_AT_LAYER onward) and re-compiles
+with a smaller learning rate, for a fine-tuning phase run after the classification head has already been trained.
+"""
 def unfreeze_for_fine_tuning(model, base_model):
-    """
-    Unfreezes the top layers of the backbone (from config.FINE_TUNE_AT_LAYER onward) and re-compiles
-    with a smaller learning rate, for a fine-tuning phase run after the classification head has already been trained.
-    """
     base_model.trainable = True
     for layer in base_model.layers[:config.FINE_TUNE_AT_LAYER]:
         layer.trainable = False
