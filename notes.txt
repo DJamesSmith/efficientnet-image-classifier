@@ -17,3 +17,19 @@ Dion's macOS, environment used for core python project (( image_classification_e
 
 More notes on (dion.manipal account):
 https://docs.google.com/document/d/1APGkT4lRehr3OTfvGwfZM84liDSkXjGeMFmR29kF8VU/edit?tab=t.0#heading=h.llu5mx5kr0le
+
+
+
+----------------------------------------------------------------------------------------------------
+dion.manipal account
+https://www.kaggle.com/code/dionmanipal/efficientnetb0-test/edit
+
+If you're using kaggle for faster training time using Kaggle's GPUs:
+
+1. Write this for every file:
+    %%writefile train.py
+
+2. Kaggle dataset import in cell (go to the kaggle website where you actually downloaded the dataset from)
+Copy the code to import from kagglehub, it comes before the "download zip" option, and paste it in the kaggle notebook cell before the train() function.
+
+3. You can import the dataset in any cell before the cell where you call the function for train(). Because train() needs that path before hand.
