@@ -6,12 +6,10 @@ from tensorflow.keras.applications import EfficientNetB0
 import config
 
 
-"""
-Builds and compiles an EfficientNetB0-backed binary classifier.
-Returns:
-    model: compiled tf.keras.Model
-    base_model: reference to the EfficientNetB0 backbone (needed later to selectively unfreeze layers for fine-tuning)
-"""
+# Builds and compiles an EfficientNetB0-backed binary classifier.
+# Returns:
+#     model: compiled tf.keras.Model
+#     base_model: reference to the EfficientNetB0 backbone (needed later to selectively unfreeze layers for fine-tuning)
 def build_model():
     base_model = EfficientNetB0(
         include_top=False,
@@ -35,10 +33,8 @@ def build_model():
     return model, base_model
 
 
-"""
-Unfreezes the top layers of the backbone (from config.FINE_TUNE_AT_LAYER onward) and re-compiles
-with a smaller learning rate, for a fine-tuning phase run after the classification head has already been trained.
-"""
+# Unfreezes the top layers of the backbone (from config.FINE_TUNE_AT_LAYER onward) and re-compiles
+# with a smaller learning rate, for a fine-tuning phase run after the classification head has already been trained.
 def unfreeze_for_fine_tuning(model, base_model):
     base_model.trainable = True
     for layer in base_model.layers[:config.FINE_TUNE_AT_LAYER]:
